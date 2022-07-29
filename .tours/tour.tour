@@ -1,0 +1,847 @@
+{
+  "$schema": "https://aka.ms/codetour-schema",
+  "title": "Comments Tour",
+  "steps": [
+    {
+      "title": "Introduction",
+      "description": "This is an [Node.js](https://nodejs.org) fullstack [Express](https://expressjs.com/), [MongoDB](https://www.mongodb.com/), and [EJS](https://ejs.co/) powered Todo application, allowing the creation, updating, and deletion of Todo items."
+    },
+    {
+      "file": "README.md",
+      "description": "Every good piece of software comes with a [README.md](./README.md), as does this one, and it contains the steps to get the application up and running, starting with the command to install all the needed packages:\n\n>> npm install",
+      "line": 1,
+      "selection": {
+        "start": {
+          "line": 1,
+          "character": 1
+        },
+        "end": {
+          "line": 1,
+          "character": 12
+        }
+      },
+      "title": "npm install"
+    },
+    {
+      "file": "README.md",
+      "description": "Additionally we have described here the required Environment variables to get the application running, `DB_STRING`, which needs to contain the URI to the MongoDB database instance to connect to.\n\n>> echo \"\\nDB_STRING = ''\\n\" >> .env",
+      "line": 2,
+      "selection": {
+        "start": {
+          "line": 2,
+          "character": 5
+        },
+        "end": {
+          "line": 2,
+          "character": 14
+        }
+      },
+      "title": ".env"
+    },
+    {
+      "file": "package.json",
+      "description": "A common file in all Node.js applications is this [package.json](./package.json).",
+      "line": 1
+    },
+    {
+      "file": "package.json",
+      "description": "It can contain various information, both for consumption by people and by software alike.",
+      "line": 10,
+      "selection": {
+        "start": {
+          "line": 2,
+          "character": 4
+        },
+        "end": {
+          "line": 2,
+          "character": 8
+        }
+      }
+    },
+    {
+      "file": "package.json",
+      "description": "The most informational lines can be the `dependencies`, which tells us what other Node.js packages our code directly depends on.",
+      "line": 17,
+      "title": "dependencies",
+      "selection": {
+        "start": {
+          "line": 11,
+          "character": 3
+        },
+        "end": {
+          "line": 17,
+          "character": 4
+        }
+      }
+    },
+    {
+      "file": ".gitignore",
+      "description": "Another file in most software projects is the [.gitignore](./.gitignore), which contains - on each line - a pattern of files that should not be commited into the `git` repository.",
+      "line": 1
+    },
+    {
+      "file": ".gitignore",
+      "description": "Another file in most software projects is the [.gitignore](./.gitignore), which contains - on each line - a pattern of files that should not be commited into the `git` repository.",
+      "line": 1,
+      "selection": {
+        "start": {
+          "line": 1,
+          "character": 1
+        },
+        "end": {
+          "line": 1,
+          "character": 13
+        }
+      },
+      "title": "node_modules"
+    },
+    {
+      "file": ".gitignore",
+      "description": "Next is the [.env](./env) file, which contains the secrets & credentials - in our case `DB_STRING` - to get the project working locally.",
+      "line": 2,
+      "selection": {
+        "start": {
+          "line": 2,
+          "character": 1
+        },
+        "end": {
+          "line": 2,
+          "character": 5
+        }
+      },
+      "title": ".env"
+    },
+    {
+      "file": "server.js",
+      "description": "In this project, the [server.js](./server.js) is the entry point of the project, which means it's the file that gets executed by Node.js to start off the program, in this case the server.",
+      "line": 1
+    },
+    {
+      "file": "server.js",
+      "description": "First thing we do is require the [`express`](https://www.npmjs.com/package/express) module, which makes setting up HTTP servers much easier for us",
+      "line": 2,
+      "title": "express",
+      "selection": {
+        "start": {
+          "line": 2,
+          "character": 26
+        },
+        "end": {
+          "line": 2,
+          "character": 33
+        }
+      }
+    },
+    {
+      "file": "server.js",
+      "description": "Then we create a instance of an Express application - despite this not appearing as\n```js\nconst app = new Express()\n```\nit behaves similarly to a constructor, creating a unique instance for us to operate on.",
+      "line": 4,
+      "title": "new express instance",
+      "selection": {
+        "start": {
+          "line": 4,
+          "character": 7
+        },
+        "end": {
+          "line": 4,
+          "character": 10
+        }
+      }
+    },
+    {
+      "file": "server.js",
+      "description": "Next we get a reference to the [`MongoClient`](https://mongodb.github.io/node-mongodb-native/3.6/api/MongoClient.html) from the [`mongodb`](https://www.npmjs.com/package/mongodb) module.",
+      "line": 6,
+      "title": "MongoClient",
+      "selection": {
+        "start": {
+          "line": 6,
+          "character": 30
+        },
+        "end": {
+          "line": 6,
+          "character": 37
+        }
+      }
+    },
+    {
+      "file": "server.js",
+      "description": "Then we create a constant `PORT` variable, initalized to `2121` - written in all capital letters as it's a constant containing a primative.",
+      "line": 8,
+      "title": "PORT",
+      "selection": {
+        "start": {
+          "line": 8,
+          "character": 7
+        },
+        "end": {
+          "line": 8,
+          "character": 18
+        }
+      }
+    },
+    {
+      "file": "server.js",
+      "description": "Next we call the [`config()`](https://github.com/motdotla/dotenv#config) method given to us by the [`dotenv`](https://www.npmjs.com/package/dotenv) module, which reads the `.env` file in the current working directory, adding each newly found entry to [`process.env`](https://nodejs.org/dist/latest/docs/api/process.html#processenv) global.",
+      "line": 10,
+      "title": "dotenv",
+      "selection": {
+        "start": {
+          "line": 10,
+          "character": 10
+        },
+        "end": {
+          "line": 10,
+          "character": 16
+        }
+      }
+    },
+    {
+      "file": "server.js",
+      "description": "Next we declare three variables, all with the [`let`](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Statements/let) declaration - the first of which is `db`, which will eventualy store a reference to the [`Db`](https://mongodb.github.io/node-mongodb-native/3.6/api/Db.html) instance we will connect to.",
+      "line": 14,
+      "title": "db"
+    },
+    {
+      "file": "server.js",
+      "description": "Then we initalize the value of `db` to `process.env.DB_STRING`.",
+      "line": 15,
+      "title": "dbConnectionStr"
+    },
+    {
+      "file": "server.js",
+      "description": "Next we similarly initalize the value of `dbName` to `'todo'`.",
+      "line": 16,
+      "title": "dbName"
+    },
+    {
+      "file": "server.js",
+      "description": "Then we call the [`connect()`](https://mongodb.github.io/node-mongodb-native/3.6/api/MongoClient.html#.connect) method on the `MongoClient` required earlier, passing the `dbConnectionStr` and setting the option of `useUnifiedTopology` to `true`.",
+      "line": 19,
+      "title": "MongoClient.connect",
+      "selection": {
+        "start": {
+          "line": 19,
+          "character": 40
+        },
+        "end": {
+          "line": 19,
+          "character": 58
+        }
+      }
+    },
+    {
+      "file": "server.js",
+      "description": "Almost all `mongodb` methods work with both `Promise`s and callbacks, returning a `Promise` when not passed a callback, and as we passed no callback function to `connect` - we wait for the result with a `then`",
+      "line": 21,
+      "title": "Promise"
+    },
+    {
+      "file": "server.js",
+      "description": "Then `console.log`ing a successful message.",
+      "line": 23,
+      "title": "successful message"
+    },
+    {
+      "file": "server.js",
+      "description": "Next assigning to the `db` variable an instance of the `Db` for the database named `dbName`, retrived by calling the `.db()` factory method.",
+      "line": 25,
+      "title": "Db instance"
+    },
+    {
+      "file": "server.js",
+      "description": "But before those lines actually get to execute, we syncronusly set the `view engine` option of our express application to `ejs`, allowing to omit the extension in future `response.render` calls",
+      "line": 29,
+      "title": "view engine",
+      "selection": {
+        "start": {
+          "line": 29,
+          "character": 9
+        },
+        "end": {
+          "line": 29,
+          "character": 29
+        }
+      }
+    },
+    {
+      "file": "server.js",
+      "description": "Next we construct a `serve-static` middleware for the `./public` directory, adding it to express at the `'/'` path.\n\nThis looks for any requested path to `/*` within `/public/*`, for example `/js/main.js` gets turned into `./public/js/main.js` - and if found serves the file, not continuing onto the next middleware handler.",
+      "line": 31,
+      "title": "static assets",
+      "selection": {
+        "start": {
+          "line": 31,
+          "character": 25
+        },
+        "end": {
+          "line": 31,
+          "character": 31
+        }
+      }
+    },
+    {
+      "file": "server.js",
+      "description": "Then we construct a `body-parser` middleware - `urlencoded` - for parsing requests with a `Content-Type` of `application/x-www-form-urlencoded`, being the default encoding of `<form>`s.\n\nIt takes any matching request and consumes the body, parsing it's contents, constructing them into an object, and assigning said object to the `request.body` property.",
+      "line": 33,
+      "selection": {
+        "start": {
+          "line": 33,
+          "character": 28
+        },
+        "end": {
+          "line": 33,
+          "character": 46
+        }
+      },
+      "title": "urlencoded parsing"
+    },
+    {
+      "file": "server.js",
+      "description": "Similarly, we do the same with `express.json()`, the only difference being this applies to requests with a `Content-Type` of `application/json`, and as such parses bodys with a `JSON` content.",
+      "line": 35,
+      "title": "JSON parsing"
+    },
+    {
+      "file": "server.js",
+      "description": "Finally we start the server, listening on either a `PORT` provided via environment variable, or the previous defined one.",
+      "line": 125,
+      "title": "starting server",
+      "selection": {
+        "start": {
+          "line": 125,
+          "character": 12
+        },
+        "end": {
+          "line": 125,
+          "character": 36
+        }
+      }
+    },
+    {
+      "file": "server.js",
+      "description": "...and once connected, log a successful message.",
+      "line": 126,
+      "title": "successful message"
+    },
+    {
+      "file": "server.js",
+      "description": "From this point we move onto many custom route handler functions, the first being for the root `/` path, home - this one being our one and only `async` route handler function.",
+      "line": 39,
+      "title": "homepage",
+      "selection": {
+        "start": {
+          "line": 39,
+          "character": 13
+        },
+        "end": {
+          "line": 39,
+          "character": 41
+        }
+      }
+    },
+    {
+      "file": "server.js",
+      "description": "We first access the `'todos'` collection of our previously saved `Db` instance via the `collection()` method, and call the `find()` method on it, passing no filter object, meaning it will find all documents, and then change the returned cursor into a `Promise` that will resolve with an array of `Document`s with `toArray()`.",
+      "line": 41,
+      "title": "todoItems"
+    },
+    {
+      "file": "server.js",
+      "description": "Next we do some of the same, but this time ask for the count of documents that have a `completed` property with a value of `false` by passing such a filter to the `countDocuments()` method.",
+      "line": 43,
+      "title": "itemsLeft"
+    },
+    {
+      "file": "server.js",
+      "description": "Finally we tell express to `render` our view called [`index.ejs`](./views/index.ejs) with the options of the found documents and the number of documents with a `completed` property set to `false`, named `items` and `left` accordingly.",
+      "line": 45,
+      "title": "render index.ejs"
+    },
+    {
+      "file": "views/index.ejs",
+      "description": "This takes us to `index.ejs`, where EJS takes over with the provided options and generates the HTML accordingly.",
+      "line": 1
+    },
+    {
+      "file": "views/index.ejs",
+      "description": "Starting with the html DOCTYPE, telling browsers that the HTML it will find below is complient with the specification and it should disable quarks mode.",
+      "line": 2,
+      "title": "DOCTYPE"
+    },
+    {
+      "file": "views/index.ejs",
+      "description": "Next we set the document language to `\"en\"`.",
+      "line": 4,
+      "title": "lang"
+    },
+    {
+      "file": "views/index.ejs",
+      "description": "Then the expected character encoding to `\"UTF-8\"`.",
+      "line": 7,
+      "title": "charset"
+    },
+    {
+      "file": "views/index.ejs",
+      "description": "Next we tell all Microsoft browsers to render this document under the `Edge` engine.",
+      "line": 9,
+      "title": "X-UA-Compatible"
+    },
+    {
+      "file": "views/index.ejs",
+      "description": "Then we set the viewport `width` and `initial-scale` - zoom level - to the width of the device and `1.0` accordingly.",
+      "line": 11,
+      "title": "viewport"
+    },
+    {
+      "file": "views/index.ejs",
+      "description": "Next is the document title, used in the title bar, bookmark names, etc.",
+      "line": 13,
+      "title": "title"
+    },
+    {
+      "file": "views/index.ejs",
+      "description": "Then is our stylesheet for Font Awesome",
+      "line": 15,
+      "title": "Font Awesome"
+    },
+    {
+      "file": "views/index.ejs",
+      "description": "and lastly for the `<head>`, our custom stylesheet at [`\"css/style.css\"`](./public/css/style.css)",
+      "line": 17,
+      "title": "style.css"
+    },
+    {
+      "file": "public/css/style.css",
+      "description": "...which if we look at, we find only two rulesets.",
+      "line": 1
+    },
+    {
+      "file": "public/css/style.css",
+      "description": "A styling of all `<h1>` tags with a `color` of `red`...",
+      "line": 3,
+      "title": "h1"
+    },
+    {
+      "file": "public/css/style.css",
+      "description": "...and the styling of all elements with a `class` containing `\"completed\"` with the `color` of `grey` and a `text-decoration` of `line-through`.",
+      "line": 8,
+      "title": ".completed"
+    },
+    {
+      "file": "views/index.ejs",
+      "description": "Back in the `index.ejs` though, our first visible element is a heading.",
+      "line": 20,
+      "title": "h1"
+    },
+    {
+      "file": "views/index.ejs",
+      "description": "Then a unordered list with a class of `\"todoItems\"`, to contain all of our todo items.",
+      "line": 22,
+      "title": "ul"
+    },
+    {
+      "file": "views/index.ejs",
+      "description": "Next is our first EJS logic, a scriptlet containing a for-loop, which is iterating throgh all the documents in the `items` array.",
+      "line": 24,
+      "title": "iterate over items"
+    },
+    {
+      "file": "views/index.ejs",
+      "description": "For each document, we output a list item with a class of `\"item\"`...",
+      "line": 26,
+      "title": "li"
+    },
+    {
+      "file": "views/index.ejs",
+      "description": "...and based on if the `completed` property of the current item is equal to `true`...",
+      "line": 28,
+      "title": "completed condition"
+    },
+    {
+      "file": "views/index.ejs",
+      "description": "...create a `<span>` with the content of the current item `thing`, giving it a class of `\"completed\"` if so, ",
+      "line": 29,
+      "title": "span"
+    },
+    {
+      "file": "views/index.ejs",
+      "description": "otherwise giving it no `class` at all.",
+      "line": 31,
+      "title": "classless-span"
+    },
+    {
+      "file": "views/index.ejs",
+      "description": "Finally we create a Font Awesome Trash icon",
+      "line": 34,
+      "title": "Delete icon"
+    },
+    {
+      "file": "views/index.ejs",
+      "description": "Then we close the list item, for loop, and unordered list.",
+      "line": 37,
+      "title": "closing"
+    },
+    {
+      "file": "views/index.ejs",
+      "description": "Next we create a second level heading, containing within it the number of `left` todo item, aka number of documents with a `completed` property set to `false`.",
+      "line": 40,
+      "title": "left"
+    },
+    {
+      "file": "views/index.ejs",
+      "description": "Then we create a `<form>`, that will make a `POST` request with it's named data to the `/addTodo` route when submitted.",
+      "line": 45,
+      "title": "form"
+    },
+    {
+      "file": "views/index.ejs",
+      "description": "Next we create a textual input, with a `name` of `todoItem`, which will become the key of the eventual value of this input when it's submitted.",
+      "line": 47,
+      "title": "input"
+    },
+    {
+      "file": "views/index.ejs",
+      "description": "Then we create a submission button.",
+      "line": 49,
+      "title": "submit"
+    },
+    {
+      "file": "server.js",
+      "description": "Whenever said `<form>` is submitted, it comes to this `/addTodo` request handler",
+      "line": 57,
+      "selection": {
+        "start": {
+          "line": 57,
+          "character": 22
+        },
+        "end": {
+          "line": 57,
+          "character": 46
+        }
+      },
+      "title": "addTodo request handler"
+    },
+    {
+      "file": "server.js",
+      "description": "Then we access the `'todos'` collection of our previously saved `Db` instance via the `collection()` method, and call the `insertOne()` method on it, passing the object to insert - an object with a `thing` property of `request.body.todoItem`, and a `completed` property of `false`.",
+      "line": 59,
+      "title": "insertOne"
+    },
+    {
+      "file": "server.js",
+      "description": "Upon success, we redirect the user back to the homepage.",
+      "line": 63,
+      "title": "redirect"
+    },
+    {
+      "file": "server.js",
+      "description": "If any error happened though, we output it.",
+      "line": 66,
+      "title": "catch"
+    },
+    {
+      "file": "views/index.ejs",
+      "description": "Lastly we link to our [`js/main.js`](./public/js/main.js) file",
+      "line": 54,
+      "title": "main.js"
+    },
+    {
+      "file": "public/js/main.js",
+      "description": "The last file remaining is the client-side JavaScript, which hooks up the various behaviors to requests to the server to update and delete tasks.",
+      "line": 1
+    },
+    {
+      "file": "public/js/main.js",
+      "description": "First we get all the HTMLElements with a `class` of `fa-trash`, collected as a `NodeList` and assigned to `deleteBtn`.",
+      "line": 2,
+      "title": "delete buttons"
+    },
+    {
+      "file": "public/js/main.js",
+      "description": "Next we do similar for all the `span` elements that are descendants of elements with a `class` of `item`.",
+      "line": 4,
+      "title": "text spans"
+    },
+    {
+      "file": "public/js/main.js",
+      "description": "Then an even more similar operation, but for span elements with a class of `completed` that are descendants of elements with a class of `item`.",
+      "line": 6,
+      "title": "completed text spans"
+    },
+    {
+      "file": "public/js/main.js",
+      "description": "Next to iterate over all of the `deleteBtn` HTMLElements with the `forEach` method we convert the `NodeList` to an Array via the `Array.from` method.",
+      "line": 9,
+      "title": "delete button iteration"
+    },
+    {
+      "file": "public/js/main.js",
+      "description": "Now for each of these trash can elements, we add a `click` event listener that will call the `deleteItem` function.",
+      "line": 11,
+      "title": "delete button click event listener"
+    },
+    {
+      "file": "public/js/main.js",
+      "description": "First thing the `deleteItem` function does is access the current element via `this`",
+      "line": 28,
+      "selection": {
+        "start": {
+          "line": 28,
+          "character": 22
+        },
+        "end": {
+          "line": 28,
+          "character": 26
+        }
+      },
+      "title": "span this"
+    },
+    {
+      "file": "public/js/main.js",
+      "description": "Then we access the `<li>` via the `parentNode` property",
+      "line": 28,
+      "selection": {
+        "start": {
+          "line": 28,
+          "character": 27
+        },
+        "end": {
+          "line": 28,
+          "character": 37
+        }
+      },
+      "title": "parentNode"
+    },
+    {
+      "file": "public/js/main.js",
+      "description": "Next we get the `<span>` containing the text via the `childNodes` `NodeList`, indexed at `[1]` because the 0th element is the whitespace between the tags.",
+      "line": 28,
+      "selection": {
+        "start": {
+          "line": 28,
+          "character": 38
+        },
+        "end": {
+          "line": 28,
+          "character": 51
+        }
+      },
+      "title": "childNodes"
+    },
+    {
+      "file": "public/js/main.js",
+      "description": "Finally we get the `innerText` of the `<span>`, and assign it to `itemText`.",
+      "line": 28,
+      "selection": {
+        "start": {
+          "line": 28,
+          "character": 52
+        },
+        "end": {
+          "line": 28,
+          "character": 61
+        }
+      },
+      "title": "innerText"
+    },
+    {
+      "file": "public/js/main.js",
+      "description": "Then we make a `fetch()` to the `deleteItem` relative path",
+      "line": 31,
+      "selection": {
+        "start": {
+          "line": 31,
+          "character": 39
+        },
+        "end": {
+          "line": 31,
+          "character": 49
+        }
+      },
+      "title": "fetch deleteItem"
+    },
+    {
+      "file": "public/js/main.js",
+      "description": "Setting the method to `DELETE`...",
+      "line": 33,
+      "selection": {
+        "start": {
+          "line": 33,
+          "character": 22
+        },
+        "end": {
+          "line": 33,
+          "character": 28
+        }
+      },
+      "title": "DELETE method"
+    },
+    {
+      "file": "public/js/main.js",
+      "description": "Adding a `Content-Type` header of `application/json` so the server knows how to parse the body...",
+      "line": 35,
+      "selection": {
+        "start": {
+          "line": 35,
+          "character": 23
+        },
+        "end": {
+          "line": 35,
+          "character": 58
+        }
+      },
+      "title": "application/json Content-Type header"
+    },
+    {
+      "file": "public/js/main.js",
+      "description": "Then setting the body of the request to the `JSON.stringify`-ied of an object with key: value pair of `'itemFromJS'` and `itemText` retrived earlier.",
+      "line": 39,
+      "selection": {
+        "start": {
+          "line": 37,
+          "character": 19
+        },
+        "end": {
+          "line": 39,
+          "character": 15
+        }
+      },
+      "title": "body"
+    },
+    {
+      "file": "public/js/main.js",
+      "description": "Since this `fetch()` returns a `Promise` resolving to the `Response` and we're in a `async` function, we `await` said promise and assign the resolved `Response` to `response`.",
+      "line": 31,
+      "selection": {
+        "start": {
+          "line": 31,
+          "character": 26
+        },
+        "end": {
+          "line": 31,
+          "character": 31
+        }
+      },
+      "title": "await"
+    },
+    {
+      "file": "server.js",
+      "description": "While the client waits, the `/deleteItem` request handler fires",
+      "line": 113,
+      "title": "/deleteItem"
+    },
+    {
+      "file": "server.js",
+      "description": "Then we access the `'todos'` collection of our previously saved `Db` instance via the `collection()` method, and call the `deleteOne()` method on it, passing in the filter object, containing a property of `thing` with a value of `request.body.itemFromJS` - which will delete one document with the exact key-value property.\n",
+      "line": 115,
+      "selection": {
+        "start": {
+          "line": 115,
+          "character": 46
+        },
+        "end": {
+          "line": 115,
+          "character": 69
+        }
+      },
+      "title": "deleteOne"
+    },
+    {
+      "file": "server.js",
+      "description": "Upon success, we send back a JSON-ified message.",
+      "line": 118,
+      "title": "thn"
+    },
+    {
+      "file": "server.js",
+      "description": "If any error happened though, we output it.\n\n",
+      "line": 120,
+      "title": "catch"
+    },
+    {
+      "file": "public/js/main.js",
+      "description": "At this point the client has received the `Response`, and `await`s the parsing of the body as JSON.",
+      "line": 42,
+      "selection": {
+        "start": {
+          "line": 4,
+          "character": 7
+        },
+        "end": {
+          "line": 4,
+          "character": 11
+        }
+      },
+      "title": "await JSON"
+    },
+    {
+      "file": "public/js/main.js",
+      "description": "Finally we reload the page in order to receive the current version of the list.",
+      "line": 45,
+      "title": "reload location"
+    },
+    {
+      "file": "public/js/main.js",
+      "description": "The `markComplete` and `markUnComplete` client-side functions are nearly identical aside from the path...",
+      "line": 64,
+      "title": "markComplete & markUnComplete"
+    },
+    {
+      "file": "server.js",
+      "description": "but compared to `deleteItem` the server-side request handlers differ",
+      "line": 70,
+      "title": "/markComplete"
+    },
+    {
+      "file": "server.js",
+      "description": "First we access the `'todos'` collection of our previously saved `Db` instance via the `collection()` method, and call the `updateOne()` method on it, passing in the filter object, containing a property of `thing` with a value of `request.body.itemFromJS` - which will target the one document with the exact key-value property for updating.\n",
+      "line": 72,
+      "title": "updateOne"
+    },
+    {
+      "file": "server.js",
+      "description": "Then we pass as the 2nd object a number of [MongoDB Update Operator Expressions](https://www.mongodb.com/docs/manual/reference/operator/update/#std-label-update-operators), the one we use is [`$set`](https://www.mongodb.com/docs/manual/reference/operator/update/set/#mongodb-update-up.-set), which takes an object of the propertys and the new values of those properties.",
+      "line": 74,
+      "title": "$set"
+    },
+    {
+      "file": "server.js",
+      "description": "In this case we set the `completed` property to have a value of `true`.",
+      "line": 75,
+      "title": "completed"
+    },
+    {
+      "file": "server.js",
+      "description": "Finally we sort the documents before finding one to update by the `_id` property descending, giving us the latest document that matches the filter.",
+      "line": 79,
+      "title": "sort"
+    },
+    {
+      "file": "server.js",
+      "description": "Lastly we disable `upsert`ing, meaning if no document is found it won't create a new one for us",
+      "line": 81,
+      "title": "upsert"
+    },
+    {
+      "file": "server.js",
+      "description": "Similar to `deleteItem`, if successful we send back a JSON-ified message.",
+      "line": 86,
+      "title": "then"
+    },
+    {
+      "file": "server.js",
+      "description": "If any error happened though, we output it.\n\n",
+      "line": 89,
+      "title": "catch"
+    },
+    {
+      "file": "server.js",
+      "description": "`/markUnComplete` is identical aside from this single line, instead of setting `completed` to `true`, we set `completed` to `false`",
+      "line": 98,
+      "title": "/markUnComplete difference"
+    }
+  ],
+  "ref": "3c8bcb426c54a5451098bf746f18c5ec67109e95",
+  "isPrimary": true
+}
