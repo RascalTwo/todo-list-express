@@ -1,7 +1,7 @@
 // Assign a NodeList of all HTMLElements with a class of `fa-trash` to the constant variable `deleteBtn`
 const deleteBtn = document.querySelectorAll('.fa-trash')
 // Assign a NodeList of all HTMLElements that are <span>s and descendants of elements with a class of `item` to the constant variable `item`
-const item = document.querySelectorAll('.item span')
+const item = document.querySelectorAll('.item span:not([class])')
 // Assign a NodeList of all HTMLElements that are <span>s with a class of `completed` and descendants of elements with a class of `item` to the constant variable `itemCompleted`
 const itemCompleted = document.querySelectorAll('.item span.completed')
 
@@ -25,7 +25,7 @@ Array.from(itemCompleted).forEach((element)=>{
 
 async function deleteItem(){
     // From the current <span> (bound to this by the event listener), get the parentNode - the <li> - then get the 1th childNode - the <span>, then retrieve the text content of it by reading the `innerText` property
-    const itemText = this.parentNode.childNodes[1].innerText
+    const itemId = this.parentNode.dataset.id
     try{
         // Make a fetch to the relative path `deleteItem`
         const response = await fetch('deleteItem', {
@@ -33,9 +33,9 @@ async function deleteItem(){
             method: 'delete',
             // Set header `Content-Type` to `application/json` so it knows we're sending JSON, and how to parse our data
             headers: {'Content-Type': 'application/json'},
-            // Send the object with a property of itemFromJS and value of the `itemText` of the current item as a JSON string
+            // Send the object with a property of itemFromJS and value of the `itemId` of the current item as a JSON string
             body: JSON.stringify({
-              'itemFromJS': itemText
+              'itemFromJS': itemId
             })
           })
         // Attempt to load and parse the response body as JSON, assigning it to data
@@ -50,16 +50,17 @@ async function deleteItem(){
     }
 }
 
-async function markComplete(){
-    const itemText = this.parentNode.childNodes[1].innerText
+async function mark(completed){
+    const itemId = this.parentNode.dataset.id
     try{
-        // Make a fetch to the relative path `markComplete`
-        const response = await fetch('markComplete', {
-            // Set method of request to PUT
-            method: 'put',
+        // Make a fetch to the relative path `mark`
+        const response = await fetch('mark', {
+            // Set method of request to PATCH
+            method: 'PATCH',
             headers: {'Content-Type': 'application/json'},
             body: JSON.stringify({
-                'itemFromJS': itemText
+                _id: itemId,
+                completed
             })
           })
         const data = await response.json()
@@ -72,22 +73,10 @@ async function markComplete(){
     }
 }
 
-async function markUnComplete(){
-    const itemText = this.parentNode.childNodes[1].innerText
-    try{
-        // Make a fetch to the relative path `markUnComplete`
-        const response = await fetch('markUnComplete', {
-            method: 'put',
-            headers: {'Content-Type': 'application/json'},
-            body: JSON.stringify({
-                'itemFromJS': itemText
-            })
-          })
-        const data = await response.json()
-        console.log(data)
-        location.reload()
+async function markComplete(){
+    mark.call(this, true)
+}
 
-    }catch(err){
-        console.log(err)
-    }
+async function markUnComplete(){
+    mark.call(this, false)
 }

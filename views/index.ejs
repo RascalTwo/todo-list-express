@@ -23,7 +23,7 @@
     <!-- Loop through every object in the `items` array -->
     <% for(let i=0; i < items.length; i++) {%>
         <%# List item with class of `item` %>
-        <li class="item">
+        <li class="item" data-id="<%= items[i]._id %>">
             <%# Create span containing text of current item `thing`, with optional class of `completed` if the current item `completed` property is equal to `true` %>
             <% if(items[i].completed === true) {%>
                 <span class='completed'><%= items[i].thing %></span>
