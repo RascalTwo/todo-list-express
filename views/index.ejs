@@ -1,22 +1,4 @@
-<!-- Declare browsers that the latest HTML specification is being followed, and not to enable quarks mode -->
-<!DOCTYPE html>
-<!-- Declare document language as `en` -->
-<html lang="en">
-<head>
-    <!-- Declare character encoding as `UTF-8` - the only possible value -->
-    <meta charset="UTF-8">
-    <!-- Tell Microsoft browsers which version of Internet Explorer the document should be rendered as -->
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <!-- Declare the width and initial scale (zoom level) of the viewport, as the full width of the device and 1.0 accordingly -->
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <!-- Declare the document title, used in the title bar, bookmarks, etc -->
-    <title>Document</title>
-    <!-- Link to Font Awesome stylesheet -->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
-    <!-- Link to local stylesheet -->
-    <link rel="stylesheet" href="css/style.css">
-</head>
-<body>
+<%- include('layouts/top') %>
     <h1>Todo List: </h1>
     <!-- Unordered list with a class of `todoItems` -->
     <ul class="todoItems">
@@ -53,5 +35,4 @@
 
     <!-- Link to local JavaScript file -->
     <script src='js/main.js'></script>
-</body>
-</html>
+<%- include('layouts/bottom') %>
