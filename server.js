@@ -1,5 +1,9 @@
 // Assign the imported `express` module to the constant variable `express`
 const express = require('express')
+const cookieParser = require('cookie-parser');
+const expressSession = require('express-session')
+const MongoStore = require('connect-mongo');
+const db = require('./models/index.model.js');
 // Assign the newly created express application to the constant variable `app`
 const app = express()
 // Assign the default port number `2121` to the constant variable `PORT`
@@ -14,9 +18,21 @@ app.use(express.static('public'))
 app.use(express.urlencoded({ extended: true }))
 // Add the `body-parser` `json` middleware to our express application, parsing the content of any requests with a `Content-Type` of `application/json` to a JavaScript object assigned to the request `body` property.
 app.use(express.json())
+app.use(cookieParser())
+app.use(expressSession({
+  secret: 'keyboard cat',
+  resave: false,
+  saveUninitialized: true,
+  cookie: { maxAge: 3600000 },
+  rolling: true,
+  store: MongoStore.create({ clientPromise: db.promise, dbName: 'todo' }),
+}))
+require('./services/passport.js')(app)
 
 app.use(require('./routes/index.route.js'))
 app.use(require('./routes/todo.route.js'))
+app.use(require('./routes/auth.route.js'))
+
 
 // Start the server listening on either the PORT provided via environment variable or the default port stored in the PORT variable.
 app.listen(process.env.PORT || PORT, ()=>{
