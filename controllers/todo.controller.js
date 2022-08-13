@@ -18,7 +18,7 @@ function addTodo(request, response) {
 // Add a custom request handler to the `POST` method of the `/markComplete` path
 function markComplete (request, response) {
 	// Access the `todos` collection from the connected database, calling `updateOne` with a filter object containing the property `thing` set to the value of the `request.body.itemFromJS` property - parsed by the `json` middleware
-	db.db.collection('todos').updateOne({thing: request.body.itemFromJS},{
+	db.db.collection('todos').updateOne({thing: request.body.itemFromJS, deletedAt: { $exists : false }},{
 			// UpdateFilter containing the `$set` Update Operator, telling MongoDB to setting the `completed` property to `true`.
 			$set: {
 					completed: true
@@ -41,7 +41,7 @@ function markComplete (request, response) {
 
 // Add a custom request handler to the `PUT` method of the `/markUnComplete` path
 function markUnComplete(request, response) {
-	db.db.collection('todos').updateOne({thing: request.body.itemFromJS},{
+	db.db.collection('todos').updateOne({thing: request.body.itemFromJS, deletedAt: { $exists : false }},{
 			// UpdateFilter containing the `$set` Update Operator, telling MongoDB to setting the `completed` property to `false`.
 			$set: {
 					completed: false
@@ -61,7 +61,14 @@ function markUnComplete(request, response) {
 // Add a custom request handler to the `DELETE` method of the `/deleteTodo` path
 function deleteItem (request, response) {
 	// Access the `todos` collection from the connected database, calling `deleteOne` with a filter object containing the property `thing` set to the value of the `request.body.itemFromJS` property - parsed by the `json` middleware - to delete the first document that matches the filter.
-	db.db.collection('todos').deleteOne({thing: request.body.itemFromJS})
+	db.db.collection('todos').updateOne({thing: request.body.itemFromJS}, {
+		$set: {
+			deletedAt: new Date()
+		}
+	},{
+		sort: {_id: -1},
+		upsert: false
+	})
 	.then(result => {
 			console.log('Todo Deleted')
 			response.json('Todo Deleted')
