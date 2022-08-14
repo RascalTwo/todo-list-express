@@ -2,7 +2,7 @@
 		{{#each users}}
 			<h2>{{this.username}}</h2>
 			<ul class="todoItems">
-				{{#each this.items}}
+				{{#each this.todos}}
 					<li class="item {{#if this.deletedAt}}deleted{{/if}}">
             {{#if this.completed}}
                 <span class='completed'>{{this.thing}}</span>

@@ -1,9 +1,10 @@
 // Assign the imported `express` module to the constant variable `express`
 const express = require('express')
+const { engine } = require('express-handlebars');
 const cookieParser = require('cookie-parser');
 const expressSession = require('express-session')
 const MongoStore = require('connect-mongo');
-const db = require('./models/index.model.js');
+const mongooseClient = require('./models/index.model.js');
 // Assign the newly created express application to the constant variable `app`
 const app = express()
 // Assign the default port number `2121` to the constant variable `PORT`
@@ -26,7 +27,7 @@ app.use(expressSession({
   saveUninitialized: true,
   cookie: { maxAge: 3600000 },
   rolling: true,
-  store: MongoStore.create({ clientPromise: db.promise, dbName: 'todo' }),
+  store: MongoStore.create({ clientPromise: mongooseClient, dbName: 'todo' }),
 }))
 require('./services/passport.js')(app)
 

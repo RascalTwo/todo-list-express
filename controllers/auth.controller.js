@@ -1,6 +1,6 @@
 const passport = require('passport')
 const bcrypt = require('bcrypt');
-const db = require('../models/index.model.js');
+const User = require('../models/User.model.js');
 
 const signIn = [
 	passport.authenticate('local', { failureRedirect: '/' }),
@@ -9,9 +9,9 @@ const signIn = [
 
 function signUp(request, response, done) {
 	const { username, password } = request.body;
-	return db.db.collection('users').findOne({ username }).then(async user => {
+	return User.findOne({ username }).then(async user => {
 		if (user) return response.redirect('/')
-		user = await db.db.collection('users').insertOne({ username, password: await bcrypt.hash(password, 10) })
+		user = await new User({ username, password: await bcrypt.hash(password, 10) }).save()
 		request.login(user, err => {
 			if (err) return done(err)
 			return response.redirect('/')

@@ -1,10 +1,8 @@
 
-const db = require('../models/index.model.js');
+const User = require('../models/User.model.js');
 
 async function admin(request, response) {
-	const users = await db.db.collection('users').aggregate([
-		{ $lookup: { from: 'todos', localField: '_id', foreignField: 'owner', as: 'items' } }
-	]).toArray();
+	const users = await User.find().populate('todos').lean();
 	response.render('admin', { users })
 }
 
