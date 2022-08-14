@@ -1,0 +1,20 @@
+<%- include('layouts/top') %>
+		<h1>All Todo Lists</h1>
+		<% for (const user of users) { %>
+			<h2><%= user.username %></h2>
+			<ul class="todoItems">
+				<% user.items.forEach(item => { %>
+					<li class="item <%= item.deletedAt ? 'deleted' : '' %>">
+						<% if (item.completed === true) { %>
+							<span class='completed'><%= item.thing %></span>
+						<% } else { %>
+							<span><%= item.thing %></span>
+						<% } %>
+					</li>
+				<% }) %>
+			</ul>
+		<% } %>
+
+    <a href="/logout">Logout</a>
+    <a href="/">Home</a>
+<%- include('layouts/bottom') %>

@@ -32,6 +32,9 @@
     </form>
     
     <a href="/logout">Logout</a>
+    <% if (isAdmin) { %>
+        <a href="/admin">Admin</a>
+    <% } %>
 
     <!-- Link to local JavaScript file -->
     <script src='js/main.js'></script>

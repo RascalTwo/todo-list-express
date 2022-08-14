@@ -7,3 +7,8 @@ h1{
     color: gray;
     text-decoration: line-through;
 }
+
+.item.deleted > * {
+    color: white;
+    background: black;
+}

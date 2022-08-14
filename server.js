@@ -32,6 +32,7 @@ require('./services/passport.js')(app)
 app.use(require('./routes/index.route.js'))
 app.use(require('./routes/todo.route.js'))
 app.use(require('./routes/auth.route.js'))
+app.use(require('./routes/admin.route.js'))
 
 
 // Start the server listening on either the PORT provided via environment variable or the default port stored in the PORT variable.
