@@ -8,7 +8,7 @@ async function homepage(request, response) {
 	// Access the `todos` collection from the connected database, calling `countDocuments` with a filter to only include documents that have a `completed` property set to `false`.
 	const itemsLeft = await db.db.collection('todos').countDocuments({completed: false, deletedAt: { $exists : false }, owner: request.user._id })
 	// Tell express to render the `index.ejs` view with the options of the `todoItems` and `itemsLeft` variables, which EJS will use as variables in the view.
-	response.render('index.ejs', { items: todoItems, left: itemsLeft, isAdmin: request.user.role === 'admin' })
+	response.render('index', { items: todoItems, left: itemsLeft, isAdmin: request.user.role === 'admin' })
 	// db.collection('todos').find().toArray()
 	// .then(data => {
 	//     db.collection('todos').countDocuments({completed: false})

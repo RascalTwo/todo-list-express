@@ -11,7 +11,8 @@ const PORT = 2121
 // Call the `config` method on the imported `dotenv` module, loading the environment variables from the `.env` file into `process.env`
 
 // Call the `set` method of our express application, settings the default engine extension, allowing us to omit said extension when specifying view names.
-app.set('view engine', 'ejs')
+app.engine('hbs', engine({extname: 'hbs'}))
+app.set('view engine', 'hbs')
 // Add the `serve-static` middleware to our express application, serving any files requested from the root found in the `public` directory.
 app.use(express.static('public'))
 // Add the `body-parser` `urlencoded` middleware to our express application, parsing the content of any requests with a `Content-Type` of `application/x-www-form-urlencoded` to a JavaScript object assigned to the request `body` property - additionally setting the `extended` property to `true` within the options object to allow for nested objects via the `qs` module.
