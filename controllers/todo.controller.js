@@ -17,8 +17,9 @@ function addTodo(request, response) {
 
 // Add a custom request handler to the `POST` method of the `/markComplete` path
 function markComplete (request, response) {
+	console.log(request.todoFilter)
 	// Access the `todos` collection from the connected database, calling `updateOne` with a filter object containing the property `thing` set to the value of the `request.body.itemFromJS` property - parsed by the `json` middleware
-	Todo.updateOne({thing: request.body.itemFromJS, deletedAt: { $exists : false }, owner: request.user._id},{
+	Todo.updateOne(request.todoFilter,{
 			completed: true
 	},{
 			// Attempt to sort the document _id's descending to get the latest document first - this works because the `_id` is a `ObjectId` and these contain the second they were created encoded within them.
@@ -38,7 +39,7 @@ function markComplete (request, response) {
 
 // Add a custom request handler to the `PUT` method of the `/markUnComplete` path
 function markUnComplete(request, response) {
-	Todo.updateOne({thing: request.body.itemFromJS, deletedAt: { $exists : false }, owner: request.user._id},{
+	Todo.updateOne(request.todoFilter,{
 			completed: false
 	},{
 			sort: {_id: -1},
@@ -55,7 +56,7 @@ function markUnComplete(request, response) {
 // Add a custom request handler to the `DELETE` method of the `/deleteTodo` path
 function deleteItem (request, response) {
 	// Access the `todos` collection from the connected database, calling `deleteOne` with a filter object containing the property `thing` set to the value of the `request.body.itemFromJS` property - parsed by the `json` middleware - to delete the first document that matches the filter.
-	Todo.updateOne({thing: request.body.itemFromJS, deletedAt: { $exists : false }, owner: request.user._id}, {
+	Todo.updateOne(request.todoFilter, {
 		deletedAt: new Date()
 	},{
 		sort: {_id: -1},
